@@ -228,8 +228,8 @@ export const theme =
                 content: `/**
  * Project: AI Tasks Generator
  *
- * An internal AI-powered feature to automate task creation
- * and reduce operational overhead.
+ * A user-facing AI-powered feature that automates
+ * event task creation with minimal input.
  */
 
 export const aiTasksGenerator = {
@@ -237,10 +237,10 @@ export const aiTasksGenerator = {
   status: 'Production',
   year: 2025,
 
-  problem: 'Manual task creation slowed teams and introduced errors',
+  problem: 'Users struggled to create comprehensive task lists for their events',
 
   solution:
-    'Integrated OpenAI API to generate structured tasks automatically',
+    'Integrated OpenAI API to generate structured event tasks from just a few parameters',
 
   stack: [
     'TypeScript',
@@ -251,12 +251,12 @@ export const aiTasksGenerator = {
   ],
 
   results: {
-    efficiency: '300% improvement',
-    adoption: 'Used across internal teams',
+    efficiency: '300% improvement in task creation speed',
+    adoption: 'Used by platform users for event planning',
   },
 
   lesson:
-    'AI delivers real value when embedded directly into workflows',
+    'AI delivers real value when it removes friction from user workflows',
 };
 `,
             },
@@ -412,40 +412,79 @@ export const outlookChangeTracking = {
 `,
             },
             {
-                name: "internalTooling.ts",
-                path: "/portfolio/projects/internalTooling.ts",
+                name: "calmErrors.ts",
+                path: "/portfolio/projects/calmErrors.ts",
                 type: "file",
                 content: `/**
- * Project: Internal Developer Tooling
+ * Project: CalmErrors
  *
- * Tools built to improve productivity, onboarding,
- * and system reliability.
+ * A developer-first VS Code extension that makes
+ * error messages less stressful and more actionable.
  */
 
-export const internalTooling = {
-  name: 'Internal Developer Tools',
-  status: 'Ongoing',
-  year: 2023,
+export const calmErrors = {
+  name: 'CalmErrors',
+  status: 'Released',
+  year: 2026,
 
-  philosophy: 'Time invested in tooling must compound',
+  problem: 'Cryptic compiler errors cause frustration and slow debugging',
 
-  tools: [
-    {
-      name: 'Automation Scripts',
-      impact: 'Reduced manual operational work',
-    },
-    {
-      name: 'CI/CD Improvements',
-      impact: 'Faster, safer deployments',
-    },
-    {
-      name: 'Developer Onboarding',
-      impact: 'New engineers productive faster',
-    },
+  solution:
+    'VS Code extension that transforms errors into calm, clear explanations with practical next steps',
+
+  stack: [
+    'TypeScript',
+    'VS Code Extension API',
+  ],
+
+  results: {
+    dx: 'Reduced cognitive load when debugging',
+    adoption: 'Pending publication on VS Code Marketplace',
+  },
+
+  lesson:
+    'Developer experience improvements compound across every debugging session',
+};
+`,
+            },
+            {
+                name: "ademIDE.ts",
+                path: "/portfolio/projects/ademIDE.ts",
+                type: "file",
+                content: `/**
+ * Project: ademIDE
+ *
+ * An IDE-themed portfolio website showcasing
+ * career history and technical projects.
+ */
+
+export const ademIDE = {
+  name: 'ademIDE',
+  status: 'Live',
+  year: 2026,
+
+  problem: 'Traditional portfolios feel generic and forgettable',
+
+  solution:
+    'Built an IDE-themed portfolio with file tree navigation, syntax highlighting, and interactive git history',
+
+  stack: [
+    'Next.js',
+    'TypeScript',
+    'Tailwind CSS',
+    'Shiki',
+  ],
+
+  features: [
+    'File tree navigation',
+    'Syntax highlighting',
+    'Recruiter mode toggle',
+    'Git history timeline',
+    'Dark/light themes',
   ],
 
   lesson:
-    'The best tooling quietly removes friction',
+    'The best portfolio is one that demonstrates your skills while showing them',
 };
 `,
             },

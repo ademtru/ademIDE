@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { findFile } from '@/lib/portfolio-content';
 import { GitHistory } from './git-history';
+import { Minimap } from './minimap';
 
 interface CodeEditorClientProps {
   activeFilePath: string;
@@ -15,7 +16,7 @@ function getTheme(): 'github-dark-default' | 'github-light-default' {
 }
 
 function countLines(content: string): number {
-  return content.split('\n').length;
+  return content.split('\n').length * 1.7;
 }
 
 function linkifyCode(html: string): string {
@@ -46,6 +47,8 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
   const [cursorLine, setCursorLine] = useState<number | null>(null);
   const [cursorPosition, setCursorPosition] = useState<{ top: number; left: number } | null>(null);
   const [customComponent, setCustomComponent] = useState<string | null>(null);
+  const [visibleLineRange, setVisibleLineRange] = useState({ start: 0, end: 30 });
+  const [fileContent, setFileContent] = useState<string>('');
   const typingRef = useRef<NodeJS.Timeout | null>(null);
   const previousFileRef = useRef<string>('');
   const editorRef = useRef<HTMLDivElement>(null);
@@ -96,6 +99,7 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
       const totalLines = countLines(file.content);
       setFilename(file.name);
       setLineCount(totalLines);
+      setFileContent(file.content);
 
       try {
         // Dynamically import shiki to avoid SSR issues
@@ -191,6 +195,26 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
     }
   ` : '';
 
+  // Handle scroll to update minimap viewport
+  const handleScroll = useCallback(() => {
+    if (!contentRef.current) return;
+    const lineHeight = 22; // approximate line height in pixels
+    const scrollTop = contentRef.current.scrollTop;
+    const clientHeight = contentRef.current.clientHeight;
+    
+    const startLine = Math.floor(scrollTop / lineHeight);
+    const endLine = Math.floor((scrollTop + clientHeight) / lineHeight);
+    
+    setVisibleLineRange({ start: startLine, end: endLine });
+  }, []);
+
+  // Navigate to line from minimap
+  const handleMinimapNavigate = useCallback((line: number) => {
+    if (!contentRef.current) return;
+    const lineHeight = 22;
+    contentRef.current.scrollTop = line * lineHeight;
+  }, []);
+
   // Render custom component if specified
   if (customComponent === 'GitHistory') {
     return (
@@ -263,35 +287,50 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
         </div>
       </div>
       
-      {/* Editor content */}
-      <div ref={contentRef} className="flex-1 overflow-auto relative">
-        {isLoading ? (
-          <div className="p-4" style={{ color: 'var(--text-secondary)' }}>Loading...</div>
-        ) : (
-          <>
-            <div 
-              ref={editorRef}
-              className="shiki-wrapper"
-              dangerouslySetInnerHTML={{ __html: html }}
-              onClick={handleLineClick}
-            />
-            {/* Blinking cursor - shows on clicked line */}
-            {cursorLine !== null && cursorPosition && (
+      {/* Editor content with minimap */}
+      <div className="flex-1 flex overflow-hidden">
+        <div 
+          ref={contentRef} 
+          className="flex-1 overflow-auto relative"
+          onScroll={handleScroll}
+        >
+          {isLoading ? (
+            <div className="p-4" style={{ color: 'var(--text-secondary)' }}>Loading...</div>
+          ) : (
+            <>
               <div 
-                className="editor-cursor"
-                style={{
-                  position: 'absolute',
-                  top: cursorPosition.top + 2,
-                  left: cursorPosition.left,
-                  width: '2px',
-                  height: '1.4em',
-                  background: 'var(--text-accent)',
-                  animation: 'blink 1s step-end infinite',
-                }}
+                ref={editorRef}
+                className="shiki-wrapper"
+                dangerouslySetInnerHTML={{ __html: html }}
+                onClick={handleLineClick}
               />
-            )}
-          </>
-        )}
+              {/* Blinking cursor - shows on clicked line */}
+              {cursorLine !== null && cursorPosition && (
+                <div 
+                  className="editor-cursor"
+                  style={{
+                    position: 'absolute',
+                    top: cursorPosition.top + 2,
+                    left: cursorPosition.left,
+                    width: '2px',
+                    height: '1.4em',
+                    background: 'var(--text-accent)',
+                    animation: 'blink 1s step-end infinite',
+                  }}
+                />
+              )}
+            </>
+          )}
+        </div>
+        
+        {/* Minimap */}
+        <Minimap
+          content={fileContent}
+          visibleStartLine={visibleLineRange.start}
+          visibleEndLine={visibleLineRange.end}
+          totalLines={lineCount}
+          onNavigate={handleMinimapNavigate}
+        />
       </div>
       
       {/* Status bar */}
