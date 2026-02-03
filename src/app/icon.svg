@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Dark background like VS Code -->
+  <rect width="128" height="128" fill="#1e1e1e" rx="16"/>
+  
+  <!-- Code editor window frame -->
+  <rect x="12" y="12" width="104" height="104" fill="#252526" rx="4"/>
+  
+  <!-- Window controls -->
+  <circle cx="22" cy="22" r="3" fill="#ff5f56"/>
+  <circle cx="32" cy="22" r="3" fill="#ffbd2e"/>
+  <circle cx="42" cy="22" r="3" fill="#27c93f"/>
+  
+  <!-- Code lines -->
+  <line x1="20" y1="36" x2="60" y2="36" stroke="#569cd6" stroke-width="2" stroke-linecap="round"/>
+  <line x1="20" y1="46" x2="80" y2="46" stroke="#4ec9b0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="28" y1="56" x2="70" y2="56" stroke="#ce9178" stroke-width="2" stroke-linecap="round"/>
+  <line x1="20" y1="66" x2="90" y2="66" stroke="#dcdcaa" stroke-width="2" stroke-linecap="round"/>
+  <line x1="28" y1="76" x2="65" y2="76" stroke="#d16969" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Letter 'A' for Adem -->
+  <text x="64" y="100" font-family="monospace" font-size="42" font-weight="bold" fill="#4fc3f7" text-anchor="middle" letter-spacing="-2">A</text>
+  
+  <!-- TypeScript-like brackets -->
+  <text x="48" y="100" font-family="monospace" font-size="32" font-weight="normal" fill="#569cd6" text-anchor="middle" opacity="0.6">&lt;</text>
+  <text x="80" y="100" font-family="monospace" font-size="32" font-weight="normal" fill="#569cd6" text-anchor="middle" opacity="0.6">/&gt;</text>
+</svg>
