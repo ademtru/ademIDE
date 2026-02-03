@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ademIDE
 
-## Getting Started
+A personal portfolio website styled as a TypeScript IDE — because resumes are boring.
 
-First, run the development server:
+![ademIDE Screenshot](screenshot.png)
+
+## ✨ Features
+
+- **IDE-style layout** — File tree sidebar, tabbed editor, status bar
+- **Syntax highlighting** — Powered by Shiki with VS Code themes
+- **Typing animation** — Code types out when you open a file
+- **Blinking cursor** — Click any line to place the cursor
+- **Dark/Light themes** — Toggle between VS Code Dark+ and Light+
+- **Line numbers** — CSS counter-based, perfectly aligned
+- **Line highlighting** — Hover or click to highlight lines
+- **Clickable links** — URLs and emails in code are interactive
+- **Mobile responsive** — Collapsible sidebar with slide-in animation
+- **JetBrains Mono** — The proper monospace font
+
+## 🛠 Tech Stack
+
+- **Next.js 16** — React framework with App Router
+- **TypeScript** — Type-safe code
+- **Tailwind CSS v4** — Utility-first styling
+- **Shiki** — Syntax highlighting
+- **JetBrains Mono** — Google Fonts
+
+## 🚀 Getting Started
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/
+│   ├── globals.css      # Theme variables & Shiki styles
+│   ├── layout.tsx       # Root layout with fonts
+│   └── page.tsx         # Main page
+├── components/
+│   ├── ide-layout.tsx   # IDE shell with sidebar
+│   ├── file-tree.tsx    # File explorer
+│   ├── code-editor-client.tsx  # Editor with Shiki
+│   └── theme-toggle.tsx # Dark/light switch
+└── lib/
+    └── portfolio-content.ts  # All portfolio content as TS files
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✏️ Customisation
 
-## Learn More
+Edit your portfolio content in `src/lib/portfolio-content.ts`. Each file in the tree is a TypeScript string that gets syntax-highlighted.
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Deploy to Vercel with one click:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ademtru/ademIDE)
 
-## Deploy on Vercel
+## 📄 License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
