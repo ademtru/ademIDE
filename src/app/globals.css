@@ -124,19 +124,20 @@ body {
 
 /* Shiki code blocks */
 .shiki-wrapper {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .shiki-wrapper pre {
   margin: 0;
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 0;
   background: transparent !important;
-  overflow-x: auto;
+  min-width: max-content;
 }
 
 @media (min-width: 768px) {
   .shiki-wrapper pre {
-    padding: 1rem 1rem 1rem 1rem;
+    padding: 1rem 0;
   }
 }
 
@@ -157,19 +158,16 @@ body {
 .shiki-wrapper code > span {
   display: block;
   line-height: 1.5;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  margin-left: -0.5rem;
+  padding-right: 0.75rem;
   border-left: 2px solid transparent;
   transition: background-color 0.15s ease, border-left-color 0.15s ease;
+  white-space: pre;
 }
 
 @media (min-width: 768px) {
   .shiki-wrapper code > span {
     line-height: 1.6;
     padding-right: 1rem;
-    padding-left: 1rem;
-    margin-left: -1rem;
     border-left: 3px solid transparent;
   }
 }
@@ -179,22 +177,30 @@ body {
   border-left-color: var(--text-accent);
 }
 
+.shiki-wrapper code > span:hover::before {
+  background-color: var(--bg-active);
+}
+
 .shiki-wrapper code > span::before {
   counter-increment: line;
   content: counter(line);
   display: inline-block;
-  width: 2rem;
-  margin-right: 0.5rem;
+  width: 2.5rem;
+  padding-right: 0.75rem;
   text-align: right;
   color: var(--line-number);
   user-select: none;
   font-size: 11px;
+  position: sticky;
+  left: 0;
+  background: var(--bg-editor);
+  transition: background-color 0.15s ease;
 }
 
 @media (min-width: 768px) {
   .shiki-wrapper code > span::before {
-    width: 3rem;
-    margin-right: 1rem;
+    width: 3.5rem;
+    padding-right: 1rem;
     font-size: inherit;
   }
 }

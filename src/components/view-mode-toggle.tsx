@@ -20,13 +20,13 @@ export function ViewModeToggle({ mode, onModeChange }: ViewModeToggleProps) {
   }, []);
 
   if (!mounted) {
-    return <div className="w-8 h-8" />;
+    return <div className="w-7 h-7" />;
   }
 
   return (
     <button
       onClick={() => onModeChange(mode === 'ide' ? 'recruiter' : 'ide')}
-      className="flex items-center justify-center w-8 h-8 rounded transition-colors"
+      className="flex items-center justify-center w-7 h-7 rounded transition-colors"
       style={{ color: 'var(--text-secondary)' }}
       onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bg-hover)'}
       onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
