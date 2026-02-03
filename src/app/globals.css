@@ -1,26 +1,191 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root,
+[data-theme="dark"] {
+  /* VS Code Dark+ inspired theme */
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #252526;
+  --bg-sidebar: #252526;
+  --bg-editor: #1e1e1e;
+  --bg-titlebar: #323233;
+  --bg-hover: #2a2d2e;
+  --bg-active: #37373d;
+  --border-color: #3c3c3c;
+  
+  --text-primary: #d4d4d4;
+  --text-secondary: #808080;
+  --text-accent: #569cd6;
+  --text-muted: #6a6a6a;
+  
+  --line-number: #858585;
+  --selection: #264f78;
+  
+  /* File tree icons */
+  --icon-folder: #dcb67a;
+  --icon-file-ts: #3178c6;
+  
+  --shiki-theme: 'github-dark-default';
+}
+
+[data-theme="light"] {
+  /* VS Code Light+ inspired theme */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f3f3;
+  --bg-sidebar: #f3f3f3;
+  --bg-editor: #ffffff;
+  --bg-titlebar: #dddddd;
+  --bg-hover: #e8e8e8;
+  --bg-active: #d6d6d6;
+  --border-color: #e0e0e0;
+  
+  --text-primary: #1f1f1f;
+  --text-secondary: #6f6f6f;
+  --text-accent: #0066b8;
+  --text-muted: #8c8c8c;
+  
+  --line-number: #6e7681;
+  --selection: #add6ff;
+  
+  /* File tree icons */
+  --icon-folder: #c09553;
+  --icon-file-ts: #3178c6;
+  
+  --shiki-theme: 'github-light-default';
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-bg-editor: var(--bg-editor);
+  --color-bg-titlebar: var(--bg-titlebar);
+  --color-bg-hover: var(--bg-hover);
+  --color-bg-active: var(--bg-active);
+  --color-border: var(--border-color);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-accent: var(--text-accent);
+  --color-text-muted: var(--text-muted);
+  --color-line-number: var(--line-number);
+  --color-selection: var(--selection);
+  --color-icon-folder: var(--icon-folder);
+  --color-icon-file-ts: var(--icon-file-ts);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+::selection {
+  background: var(--selection);
+}
+
+/* Shiki code blocks */
+.shiki-wrapper {
+  overflow: hidden;
+}
+
+.shiki-wrapper pre {
+  margin: 0;
+  padding: 1rem 1rem 1rem 1rem;
+  background: transparent !important;
+  overflow-x: auto;
+}
+
+.shiki-wrapper code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1;
+  counter-reset: line;
+  display: block;
+}
+
+.shiki-wrapper code > span {
+  display: block;
+  line-height: 1.6;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-left: -1rem;
+  border-left: 3px solid transparent;
+  transition: background-color 0.15s ease, border-left-color 0.15s ease;
+}
+
+.shiki-wrapper code > span:hover {
+  background-color: var(--bg-active);
+  border-left-color: var(--text-accent);
+}
+
+.shiki-wrapper code > span::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 3rem;
+  margin-right: 1rem;
+  text-align: right;
+  color: var(--line-number);
+  user-select: none;
+}
+
+/* Clickable links in code */
+.code-link {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.code-link:hover {
+  opacity: 0.8;
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.editor-cursor {
+  pointer-events: none;
+}
+
+/* Active line (where cursor is) */
+.shiki-wrapper code > span.cursor-line {
+  background-color: var(--bg-active);
 }
