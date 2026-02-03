@@ -1,8 +1,14 @@
 # ademIDE
 
-A personal portfolio website styled as a TypeScript IDE — because resumes are boring.
+My personal portfolio website — styled as a TypeScript IDE, because resumes are boring.
+
+🔗 **Live:** [ademide.vercel.app](https://ademide.vercel.app)
 
 ![ademIDE Screenshot](screenshot.png)
+
+## About
+
+This is my software engineering portfolio, presented as an interactive code editor. Each "file" in the explorer contains a section of my portfolio — about me, skills, experience, projects, values, and contact info — all written as valid TypeScript.
 
 ## ✨ Features
 
@@ -11,59 +17,47 @@ A personal portfolio website styled as a TypeScript IDE — because resumes are 
 - **Typing animation** — Code types out when you open a file
 - **Blinking cursor** — Click any line to place the cursor
 - **Dark/Light themes** — Toggle between VS Code Dark+ and Light+
-- **Line numbers** — CSS counter-based, perfectly aligned
-- **Line highlighting** — Hover or click to highlight lines
+- **Line numbers & highlighting** — Hover or click to highlight lines
 - **Clickable links** — URLs and emails in code are interactive
-- **Mobile responsive** — Collapsible sidebar with slide-in animation
-- **JetBrains Mono** — The proper monospace font
+- **Mobile responsive** — Collapsible sidebar for smaller screens
 
-## 🛠 Tech Stack
+## 🛠 Built With
 
 - **Next.js 16** — React framework with App Router
 - **TypeScript** — Type-safe code
 - **Tailwind CSS v4** — Utility-first styling
 - **Shiki** — Syntax highlighting
-- **JetBrains Mono** — Google Fonts
+- **JetBrains Mono** — Monospace font
 
-## 🚀 Getting Started
+## 🚀 Run Locally
 
 ```bash
-# Install dependencies
+git clone https://github.com/ademtru/ademIDE.git
+cd ademIDE
 npm install
-
-# Run development server
 npm run dev
-
-# Open http://localhost:3000
 ```
 
-## 📁 Project Structure
+## 📁 Structure
 
 ```
 src/
-├── app/
-│   ├── globals.css      # Theme variables & Shiki styles
-│   ├── layout.tsx       # Root layout with fonts
-│   └── page.tsx         # Main page
-├── components/
-│   ├── ide-layout.tsx   # IDE shell with sidebar
-│   ├── file-tree.tsx    # File explorer
-│   ├── code-editor-client.tsx  # Editor with Shiki
-│   └── theme-toggle.tsx # Dark/light switch
+├── app/                  # Next.js app router
+├── components/           # IDE components (file tree, editor, etc.)
 └── lib/
-    └── portfolio-content.ts  # All portfolio content as TS files
+    └── portfolio-content.ts  # ← Edit this to update portfolio content
 ```
 
-## ✏️ Customisation
+## ✏️ Customise
 
-Edit your portfolio content in `src/lib/portfolio-content.ts`. Each file in the tree is a TypeScript string that gets syntax-highlighted.
+To use this as your own portfolio, edit `src/lib/portfolio-content.ts` — each file in the tree is a TypeScript string that gets syntax-highlighted.
 
-## 📦 Deploy
+## � Contact
 
-Deploy to Vercel with one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ademtru/ademIDE)
+- **Email:** ademtruong@gmail.com
+- **GitHub:** [@ademtru](https://github.com/ademtru)
+- **LinkedIn:** [ademtruong](https://linkedin.com/in/ademtruong)
 
 ## 📄 License
 
-MIT
+MIT — feel free to fork and make it your own!
