@@ -167,7 +167,7 @@ export const experience: Role[] = [
     period: 'Jun 2025 — Present',
     location: 'Melbourne, AU',
     highlights: [
-      'Worked on Department of Defence project with NV1 clearance',
+      'Worked on Department of Defence project',
       'Built Python automation for sensitive data redaction workflows',
       'Maintained and triaged operational systems',
       'Completed 10+ certifications across AI, Cloud, ML, and Agile',
@@ -528,8 +528,14 @@ export const contact = {
 };
 
 export const signoff =
-  'Thanks for reading — let’s build something meaningful.';
+  'Thanks for reading — let's build something meaningful.';
 `,
+    },
+    {
+        name: "git-history.log",
+        path: "/portfolio/git-history.log",
+        type: "file",
+        content: "__COMPONENT__:GitHistory",
     },
 ];
 

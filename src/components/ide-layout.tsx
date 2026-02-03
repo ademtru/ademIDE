@@ -51,7 +51,9 @@ export function IDELayoutClient({ children }: IDELayoutClientProps) {
   const handleFileSelect = (path: string) => {
     setActiveFilePath(path);
     // Close sidebar on mobile after selecting a file
-    setSidebarOpen(false);
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false);
+    }
   };
 
   // Show nothing until we know if welcome should be shown (prevents flash)

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { findFile } from '@/lib/portfolio-content';
+import { GitHistory } from './git-history';
 
 interface CodeEditorClientProps {
   activeFilePath: string;
@@ -44,6 +45,7 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
   const [isTyping, setIsTyping] = useState(false);
   const [cursorLine, setCursorLine] = useState<number | null>(null);
   const [cursorPosition, setCursorPosition] = useState<{ top: number; left: number } | null>(null);
+  const [customComponent, setCustomComponent] = useState<string | null>(null);
   const typingRef = useRef<NodeJS.Timeout | null>(null);
   const previousFileRef = useRef<string>('');
   const editorRef = useRef<HTMLDivElement>(null);
@@ -75,10 +77,22 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
         setHtml('<pre>File not found</pre>');
         setFilename('unknown');
         setLineCount(0);
+        setCustomComponent(null);
         setIsLoading(false);
         return;
       }
 
+      // Check if this file should render a custom component
+      if (file.content.startsWith('__COMPONENT__:')) {
+        const componentName = file.content.replace('__COMPONENT__:', '').trim();
+        setCustomComponent(componentName);
+        setFilename(file.name);
+        setLineCount(0);
+        setIsLoading(false);
+        return;
+      }
+      
+      setCustomComponent(null);
       const totalLines = countLines(file.content);
       setFilename(file.name);
       setLineCount(totalLines);
@@ -176,6 +190,53 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
       background-color: var(--bg-active);
     }
   ` : '';
+
+  // Render custom component if specified
+  if (customComponent === 'GitHistory') {
+    return (
+      <div className="h-full flex flex-col" style={{ background: 'var(--bg-editor)' }}>
+        {/* Tab bar */}
+        <div 
+          className="flex items-center border-b h-8 md:h-9 px-1 md:px-2"
+          style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
+        >
+          <div 
+            className="flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 text-xs md:text-sm border-t-2"
+            style={{ 
+              background: 'var(--bg-editor)', 
+              color: 'var(--text-primary)',
+              borderTopColor: 'var(--text-accent)'
+            }}
+          >
+            <span className="text-orange-500 text-[10px] md:text-xs">📜</span>
+            <span className="truncate max-w-[120px] md:max-w-none">{filename}</span>
+          </div>
+        </div>
+        
+        {/* Git History Component */}
+        <div className="flex-1 overflow-hidden">
+          <GitHistory />
+        </div>
+        
+        {/* Status bar */}
+        <div 
+          className="h-5 md:h-6 flex items-center justify-between px-2 md:px-3 text-[10px] md:text-xs border-t flex-shrink-0"
+          style={{ 
+            background: 'var(--bg-secondary)', 
+            borderColor: 'var(--border-color)',
+            color: 'var(--text-secondary)'
+          }}
+        >
+          <div className="flex items-center gap-2 md:gap-4 min-w-0">
+            <span className="truncate">{activeFilePath}</span>
+          </div>
+          <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
+            <span>Git Log</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full flex flex-col" style={{ background: 'var(--bg-editor)' }}>
