@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 
 function getTheme(): 'dark' | 'light' {
   if (typeof window === 'undefined') return 'dark';
@@ -9,14 +9,17 @@ function getTheme(): 'dark' | 'light' {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
+// Use useLayoutEffect on client, useEffect on server
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 export function ThemeToggle() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
+  useIsomorphicLayoutEffect(() => {
     const initial = getTheme();
     setTheme(initial);
+    setMounted(true);
     document.documentElement.setAttribute('data-theme', initial);
   }, []);
 

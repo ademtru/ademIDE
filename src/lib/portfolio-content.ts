@@ -129,6 +129,9 @@ export const tooling = [
   'DevOps',
   'Jest',
   'Agile / Scrum',
+  'GitHub Copilot',
+  'ChatGPT',
+  'Claude Code',
 ] as const;
 
 export const learning = [

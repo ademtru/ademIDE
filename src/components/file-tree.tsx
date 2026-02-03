@@ -79,7 +79,7 @@ function TreeItem({ node, activeFilePath, onFileSelect, depth }: TreeItemProps) 
     <li>
       <button
         onClick={handleClick}
-        className="w-full flex items-center gap-1.5 px-2 py-0.5 text-left text-sm cursor-pointer border-none transition-colors duration-75"
+        className="w-full flex items-center gap-1 md:gap-1.5 px-2 py-1 md:py-0.5 text-left text-xs md:text-sm cursor-pointer border-none transition-colors duration-75"
         style={{ 
           paddingLeft,
           background: isActive ? 'var(--bg-active)' : 'transparent',

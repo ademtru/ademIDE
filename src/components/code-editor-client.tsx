@@ -186,19 +186,19 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
       
       {/* Tab bar */}
       <div 
-        className="flex items-center border-b h-9 px-2"
+        className="flex items-center border-b h-8 md:h-9 px-1 md:px-2"
         style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
       >
         <div 
-          className="flex items-center gap-2 px-3 py-1.5 text-sm border-t-2"
+          className="flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 text-xs md:text-sm border-t-2"
           style={{ 
             background: 'var(--bg-editor)', 
             color: 'var(--text-primary)',
             borderTopColor: 'var(--text-accent)'
           }}
         >
-          <span className="text-[#3178c6] text-xs font-bold">TS</span>
-          <span>{filename}</span>
+          <span className="text-[#3178c6] text-[10px] md:text-xs font-bold">TS</span>
+          <span className="truncate max-w-[120px] md:max-w-none">{filename}</span>
         </div>
       </div>
       
@@ -235,20 +235,22 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
       
       {/* Status bar */}
       <div 
-        className="h-6 flex items-center justify-between px-3 text-xs border-t flex-shrink-0"
+        className="h-5 md:h-6 flex items-center justify-between px-2 md:px-3 text-[10px] md:text-xs border-t flex-shrink-0"
         style={{ 
           background: 'var(--bg-secondary)', 
           borderColor: 'var(--border-color)',
           color: 'var(--text-secondary)'
         }}
       >
-        <div className="flex items-center gap-4">
-          <span>{activeFilePath}</span>
+        <div className="flex items-center gap-2 md:gap-4 min-w-0">
+          <span className="truncate hidden sm:inline">{activeFilePath}</span>
+          <span className="truncate sm:hidden">{filename}</span>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
           <span>Ln {lineCount}</span>
-          <span>TypeScript</span>
-          <span>UTF-8</span>
+          <span className="hidden sm:inline">TypeScript</span>
+          <span className="sm:hidden">TS</span>
+          <span className="hidden md:inline">UTF-8</span>
         </div>
       </div>
     </div>
@@ -289,8 +291,14 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
           const textWidth = measureSpan.offsetWidth;
           document.body.removeChild(measureSpan);
           
-          // Position: line left + padding (1rem=16px) + line number width (3rem=48px) + margin (1rem=16px) + text width
-          const leftOffset = lineRect.left - containerRect.left + 16 + 48 + 16 + textWidth;
+          // Responsive offsets: mobile uses smaller padding/margins
+          const isMobile = window.innerWidth < 768;
+          const padding = isMobile ? 8 : 16; // 0.5rem or 1rem
+          const lineNumberWidth = isMobile ? 32 : 48; // 2rem or 3rem
+          const margin = isMobile ? 8 : 16; // 0.5rem or 1rem
+          
+          // Position: line left + padding + line number width + margin + text width
+          const leftOffset = lineRect.left - containerRect.left + padding + lineNumberWidth + margin + textWidth;
           
           setCursorPosition({
             top: lineRect.top - containerRect.top + contentRef.current!.scrollTop,
