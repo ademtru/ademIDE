@@ -2,7 +2,7 @@
 
 My personal portfolio website — styled as a TypeScript IDE, because resumes are boring.
 
-🔗 **Live:** [ademide.vercel.app](https://ademide.vercel.app)
+🔗 **Live:** [adem-ide.vercel.app](https://ademide.vercel.app)
 
 ![ademIDE Screenshot](screenshot.png)
 
