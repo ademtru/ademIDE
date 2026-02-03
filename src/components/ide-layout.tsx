@@ -115,18 +115,26 @@ export function IDELayoutClient({ children }: IDELayoutClientProps) {
         {viewMode === 'ide' && (
           <aside 
             className={`
-              absolute md:relative z-20 h-full
-              w-56 sm:w-64 lg:w-72 border-r flex-shrink-0 overflow-auto
-              transition-transform duration-200 ease-in-out
-              ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+              sidebar-panel absolute md:relative z-20 h-full
+              border-r flex-shrink-0
+              transition-all duration-200 ease-in-out
+              ${sidebarOpen 
+                ? 'translate-x-0 overflow-auto' 
+                : '-translate-x-full md:translate-x-0 overflow-hidden'}
             `}
-            style={{ background: 'var(--bg-sidebar)', borderColor: 'var(--border-color)' }}
+            style={{ 
+              background: 'var(--bg-sidebar)', 
+              borderColor: sidebarOpen ? 'var(--border-color)' : 'transparent',
+              width: sidebarOpen ? undefined : 0,
+            }}
           >
-            <FileTree
-              files={portfolioFiles}
-              activeFilePath={activeFilePath}
-              onFileSelect={handleFileSelect}
-            />
+            <div className="w-56 sm:w-64 lg:w-72">
+              <FileTree
+                files={portfolioFiles}
+                activeFilePath={activeFilePath}
+                onFileSelect={handleFileSelect}
+              />
+            </div>
           </aside>
         )}
 
