@@ -38,7 +38,7 @@ export function IDELayoutClient({ children }: IDELayoutClientProps) {
           >
             <SidebarIcon />
           </button>
-          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>ademide — portfolio</span>
+          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>ademIDE — portfolio</span>
         </div>
         <ThemeToggle />
       </header>

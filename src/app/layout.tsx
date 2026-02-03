@@ -8,7 +8,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ademide — Portfolio",
+  title: "ademIDE — Portfolio",
   description: "Software engineer portfolio presented as a TypeScript IDE",
 };
 
