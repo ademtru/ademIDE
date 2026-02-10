@@ -167,7 +167,7 @@ export const experience: Role[] = [
     period: 'Jun 2025 — Present',
     location: 'Melbourne, AU',
     highlights: [
-      'Worked on Department of Defence project',
+      'Worked on Government client with SAP systems critical to public services',
       'Built Python automation for sensitive data redaction workflows',
       'Maintained and triaged operational systems',
       'Completed 10+ certifications across AI, Cloud, ML, and Agile',
