@@ -145,11 +145,11 @@ function IDELayoutContent({
     // Scroll to section after sidebar closes
     const el = document.getElementById(sectionId);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Offset for sticky header
-      setTimeout(() => {
-        window.scrollBy({ top: -80, left: 0, behavior: 'smooth' });
-      }, 300); // Wait for scrollIntoView animation
+      // Scroll instantly, then adjust for header
+      el.scrollIntoView({ behavior: 'auto', block: 'start' });
+      const headerHeight = 80;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
