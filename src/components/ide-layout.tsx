@@ -229,7 +229,7 @@ function IDELayoutContent({
         {(viewMode === 'ide' || viewMode === 'recruiter') && (
           <aside 
             className={`
-              sidebar-panel absolute md:relative z-20 h-full
+              sidebar-panel ${sidebarOpen ? 'fixed md:relative' : 'fixed md:relative'} z-20 h-full
               border-r flex-shrink-0
               transition-all duration-200 ease-in-out
               ${sidebarOpen 
@@ -240,6 +240,9 @@ function IDELayoutContent({
               background: 'var(--bg-sidebar)', 
               borderColor: sidebarOpen ? 'var(--border-color)' : 'transparent',
               width: sidebarOpen ? undefined : 0,
+              top: 0,
+              left: 0,
+              height: '100vh',
             }}
           >
             <div className="w-56 sm:w-64 lg:w-72">
