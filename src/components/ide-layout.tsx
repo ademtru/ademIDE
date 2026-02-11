@@ -237,10 +237,6 @@ function IDELayoutContent({
                       <a href="#contact" className="hover:underline">Contact</a>
                     </nav>
                   </div>
-                  <div>
-                    <div className="font-bold text-sm mb-1" style={{ color: 'var(--text-accent)' }}>Resume Download</div>
-                    <a href="/ademide-resume.pdf" target="_blank" rel="noopener noreferrer" className="text-xs underline" style={{ color: 'var(--text-secondary)' }}>PDF Resume</a>
-                  </div>
                 </div>
               )}
             </div>
