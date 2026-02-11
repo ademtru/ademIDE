@@ -136,6 +136,13 @@ function IDELayoutContent({
 }: IDELayoutContentProps) {
   const { selectedLanguage, setSelectedLanguage } = useLanguage();
 
+  // Helper to close sidebar on mobile
+  const closeSidebarOnMobile = () => {
+    if (window.innerWidth < 768) {
+      onSidebarToggle();
+    }
+  };
+
   return (
     <div className="h-screen flex flex-col" style={{ background: 'var(--bg-primary)' }}>
       {/* Onboarding tooltip for recruiter mode */}
@@ -229,12 +236,12 @@ function IDELayoutContent({
                   <div>
                     <div className="font-bold text-sm mb-1" style={{ color: 'var(--text-accent)' }}>Menu</div>
                     <nav className="flex flex-col gap-2 text-xs" style={{ color: 'var(--text-secondary)' }}>
-                      <a href="#about" className="hover:underline">About</a>
-                      <a href="#experience" className="hover:underline">Experience</a>
-                      <a href="#skills" className="hover:underline">Skills</a>
-                      <a href="#projects" className="hover:underline">Projects</a>
-                      <a href="#values" className="hover:underline">Values</a>
-                      <a href="#contact" className="hover:underline">Contact</a>
+                      <a href="#about" className="hover:underline" onClick={closeSidebarOnMobile}>About</a>
+                      <a href="#experience" className="hover:underline" onClick={closeSidebarOnMobile}>Experience</a>
+                      <a href="#skills" className="hover:underline" onClick={closeSidebarOnMobile}>Skills</a>
+                      <a href="#projects" className="hover:underline" onClick={closeSidebarOnMobile}>Projects</a>
+                      <a href="#values" className="hover:underline" onClick={closeSidebarOnMobile}>Values</a>
+                      <a href="#contact" className="hover:underline" onClick={closeSidebarOnMobile}>Contact</a>
                     </nav>
                   </div>
                 </div>
