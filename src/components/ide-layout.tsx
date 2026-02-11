@@ -145,11 +145,8 @@ function IDELayoutContent({
     // Scroll to section after sidebar closes
     const el = document.getElementById(sectionId);
     if (el) {
-      // Scroll instantly, then adjust for header
-      el.scrollIntoView({ behavior: 'auto', block: 'start' });
-      const headerHeight = 80;
-      const y = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
     }
   };
 
@@ -167,7 +164,7 @@ function IDELayoutContent({
         style={{ 
           background: 'var(--bg-titlebar)', 
           borderColor: 'var(--border-color)',
-          position: 'sticky',
+          position: 'static',
           top: 0,
           zIndex: 30 // ensure above sidebar/overlay
         }}
