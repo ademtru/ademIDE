@@ -1,6 +1,45 @@
 'use client';
 
 import { portfolioFiles, getAllFiles } from '@/lib/portfolio-content';
+import { useState } from 'react';
+
+// IDE Mode Banner Component
+function IDEModeBanner({ onDismiss, onSwitchToIde }: { onDismiss: () => void; onSwitchToIde: () => void }) {
+  return (
+    <div
+      className="border-b px-4 py-3 flex items-center justify-between gap-4"
+      style={{
+        background: 'var(--bg-sidebar)',
+        borderColor: 'var(--border-color)',
+      }}
+    >
+      <div className="flex items-center gap-3 flex-1">
+        <span className="text-lg">💻</span>
+        <div>
+          <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+            Developer? Try <button
+              className="underline text-accent cursor-pointer bg-transparent border-none p-0 m-0"
+              style={{ color: 'var(--text-accent)', background: 'none' }}
+              onClick={onSwitchToIde}
+              aria-label="Switch to IDE mode"
+            >IDE mode</button> for the full experience
+          </p>
+          <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+            Click the IDE button in the top-right corner →
+          </p>
+        </div>
+      </div>
+      <button
+        onClick={onDismiss}
+        className="text-sm px-2 py-1 rounded hover:bg-opacity-80 transition-colors"
+        style={{ color: 'var(--text-secondary)' }}
+        aria-label="Dismiss banner"
+      >
+        ✕
+      </button>
+    </div>
+  );
+}
 
 // Extract structured data from about.ts
 function parseAbout(content: string) {
@@ -156,6 +195,26 @@ function parseProject(content: string) {
 }
 
 export function RecruiterView() {
+  // Initialize banner state from localStorage
+  const [showBanner, setShowBanner] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    const dismissed = localStorage.getItem('ademide-ide-banner-dismissed');
+    return !dismissed;
+  });
+
+  const handleDismissBanner = () => {
+    setShowBanner(false);
+    localStorage.setItem('ademide-ide-banner-dismissed', 'true');
+  };
+
+  // Add handler to switch to IDE mode using ViewModeToggle logic
+  const handleSwitchToIde = () => {
+    if (typeof window !== 'undefined') {
+      // Use custom event to trigger mode change in parent
+      window.dispatchEvent(new CustomEvent('ademide-switch-to-ide'));
+    }
+  };
+
   const allFiles = getAllFiles(portfolioFiles);
   
   const aboutFile = allFiles.find(f => f.name === 'about.ts');
@@ -180,6 +239,9 @@ export function RecruiterView() {
         fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
       }}
     >
+      {/* IDE Mode Banner */}
+      {showBanner && <IDEModeBanner onDismiss={handleDismissBanner} onSwitchToIde={handleSwitchToIde} />}
+      
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
         {/* Header */}
         {about && (
@@ -239,7 +301,7 @@ export function RecruiterView() {
 
         {/* About Section */}
         {about && (
-          <Section title="About">
+          <Section title="About" id="about">
             <p 
               className="mb-4 text-sm sm:text-base leading-relaxed"
               style={{ color: 'var(--text-primary)' }}
@@ -265,7 +327,7 @@ export function RecruiterView() {
 
         {/* Experience Section */}
         {experience.length > 0 && (
-          <Section title="Experience">
+          <Section title="Experience" id="experience">
             <div className="space-y-6">
               {experience.map((role, i) => (
                 <div key={i} className="border-l-2 pl-4" style={{ borderColor: 'var(--text-accent)' }}>
@@ -310,7 +372,7 @@ export function RecruiterView() {
 
         {/* Skills Section */}
         {skills && (
-          <Section title="Skills">
+          <Section title="Skills" id="skills">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <SkillGroup title="Languages" skills={skills.languages} />
               <SkillGroup title="Frontend" skills={skills.frontend} />
@@ -324,7 +386,7 @@ export function RecruiterView() {
 
         {/* Projects Section */}
         {projects.length > 0 && (
-          <Section title="Projects">
+          <Section title="Projects" id="projects">
             <div className="space-y-6">
               {projects.map((project, i) => project && (
                 <div 
@@ -406,7 +468,7 @@ export function RecruiterView() {
 
         {/* Values Section */}
         {values.length > 0 && (
-          <Section title="Engineering Values">
+          <Section title="Engineering Values" id="values">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {values.map((value, i) => (
                 <div 
@@ -434,7 +496,7 @@ export function RecruiterView() {
 
         {/* Contact Section */}
         {contact && (
-          <Section title="Let's Connect">
+          <Section title="Let's Connect" id="contact">
             <div className="text-center">
               {contact.openTo.length > 0 && (
                 <div className="mb-4">
@@ -523,9 +585,9 @@ export function RecruiterView() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children, id }: { title: string; children: React.ReactNode; id?: string }) {
   return (
-    <section className="mb-8 sm:mb-10">
+    <section className="mb-8 sm:mb-10" id={id}>
       <h2 
         className="text-lg sm:text-xl font-bold mb-4 pb-2 border-b"
         style={{ 

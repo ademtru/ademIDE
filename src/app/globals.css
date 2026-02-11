@@ -10,6 +10,7 @@
   --bg-titlebar: #323233;
   --bg-hover: #2a2d2e;
   --bg-active: #37373d;
+  --bg-dropdown: #252526;
   --border-color: #3c3c3c;
   
   --text-primary: #d4d4d4;
@@ -36,6 +37,7 @@
   --bg-titlebar: #dddddd;
   --bg-hover: #e8e8e8;
   --bg-active: #d6d6d6;
+  --bg-dropdown: #ffffff;
   --border-color: #e0e0e0;
   
   --text-primary: #1f1f1f;

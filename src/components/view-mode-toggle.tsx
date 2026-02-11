@@ -26,14 +26,27 @@ export function ViewModeToggle({ mode, onModeChange }: ViewModeToggleProps) {
   return (
     <button
       onClick={() => onModeChange(mode === 'ide' ? 'recruiter' : 'ide')}
-      className="flex items-center justify-center w-7 h-7 rounded transition-colors"
-      style={{ color: 'var(--text-secondary)' }}
+      className="flex items-center gap-1.5 px-2 py-1 rounded transition-colors text-xs font-medium"
+      style={{ 
+        color: 'var(--text-secondary)',
+        border: '1px solid var(--border-color)'
+      }}
       onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bg-hover)'}
       onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
       aria-label={mode === 'ide' ? 'Switch to recruiter view' : 'Switch to IDE view'}
       title={mode === 'ide' ? 'Switch to recruiter view' : 'Switch to IDE view'}
     >
-      {mode === 'ide' ? <DocumentIcon /> : <CodeIcon />}
+      {mode === 'ide' ? (
+        <>
+          <DocumentIcon />
+          <span className="hidden sm:inline">Resume</span>
+        </>
+      ) : (
+        <>
+          <CodeIcon />
+          <span className="hidden sm:inline">IDE</span>
+        </>
+      )}
     </button>
   );
 }

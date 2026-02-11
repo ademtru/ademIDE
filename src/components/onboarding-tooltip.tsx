@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from 'react';
 
-type OnboardingStep = 'recruiter' | 'theme' | 'sidebar';
+type OnboardingStep = 'language' | 'recruiter' | 'theme' | 'sidebar';
 
 interface OnboardingTooltipProps {
   show: boolean;
   onDismiss: () => void;
 }
 
-const STEPS: OnboardingStep[] = ['recruiter', 'theme', 'sidebar'];
+const STEPS: OnboardingStep[] = ['language', 'recruiter', 'theme', 'sidebar'];
 
 interface StepConfig {
   title: string;
@@ -31,10 +31,25 @@ interface StepConfig {
     mdRight?: string;
     left?: string;
     mdLeft?: string;
+    width?: string; // Optional custom width
+    height?: string; // Optional custom height
   };
 }
 
 const STEP_CONFIG: Record<OnboardingStep, StepConfig> = {
+  language: {
+    title: 'Language Picker',
+    subtitle: 'Choose your preferred syntax',
+    description: 'Switch between TypeScript, JavaScript, Python, C++, and Pseudocode to see the portfolio in different languages.',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 4h4l1 1h7v8H2V4z" fill="#dcb67a" opacity="0.9" stroke="none" />
+        <text x="5" y="11" fontSize="6" fill="#3178c6" fontFamily="sans-serif" fontWeight="bold">TS</text>
+      </svg>
+    ),
+    tooltip: { top: '36px', right: '35px', arrowRight: '114px' },
+    highlight: { top: '2px', right: '135px', width: '54px' }, 
+  },
   recruiter: {
     title: 'Recruiter Mode',
     subtitle: 'Not into code? No problem!',
@@ -47,10 +62,8 @@ const STEP_CONFIG: Record<OnboardingStep, StepConfig> = {
         <line x1="5" y1="11" x2="11" y2="11" />
       </svg>
     ),
-    // Tooltip and highlight positions (header: px-2 = 8px, buttons: 28px each, gap: 4px)
-    // Theme toggle at right: 8px, Recruiter toggle at right: 8px + 28px + 4px = 40px
-    tooltip: { top: '36px', right: '8px', arrowRight: '50px' },
-    highlight: { top: '2px', right: '40px' },
+    tooltip: { top: '36px', right: '35px', arrowRight: '50px' },
+    highlight: { top: '2px', right: '75px', width: '54px' }, 
   },
   theme: {
     title: 'Theme Toggle',
@@ -62,8 +75,8 @@ const STEP_CONFIG: Record<OnboardingStep, StepConfig> = {
         <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" strokeWidth="1.5" fill="none" />
       </svg>
     ),
-    tooltip: { top: '36px', right: '8px', arrowRight: '16px' },
-    highlight: { top: '2px', right: '8px' },
+    tooltip: { top: '36px', right: '30px', arrowRight: '16px' },
+    highlight: { top: '2px', right: '40px' }, 
   },
   sidebar: {
     title: 'File Explorer',
@@ -76,19 +89,21 @@ const STEP_CONFIG: Record<OnboardingStep, StepConfig> = {
       </svg>
     ),
     tooltip: { top: '36px', left: '8px', arrowLeft: '16px' },
-    highlight: { top: '2px', left: '8px' },
+    highlight: { top: '2px', left: '8px' }, 
   },
 };
 
 export function OnboardingTooltip({ show, onDismiss }: OnboardingTooltipProps) {
   const [visible, setVisible] = useState(false);
   const [animate, setAnimate] = useState(false);
-  const [currentStep, setCurrentStep] = useState<OnboardingStep>('recruiter');
+  const [currentStep, setCurrentStep] = useState<OnboardingStep>('language');
 
   useEffect(() => {
     if (show) {
       // Small delay before showing to let the UI settle
       const showTimer = setTimeout(() => {
+        // Reset to first step when showing
+        setCurrentStep('language');
         setVisible(true);
         // Trigger animation after mount
         setTimeout(() => setAnimate(true), 50);
@@ -250,8 +265,8 @@ export function OnboardingTooltip({ show, onDismiss }: OnboardingTooltipProps) {
             ? { left: config.highlight.left } 
             : { right: config.highlight.right }
           ),
-          width: '28px',
-          height: '28px',
+          width: config.highlight.width || '28px',
+          height: config.highlight.height || '28px',
         }}
       >
         <div 

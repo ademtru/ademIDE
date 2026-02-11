@@ -3,6 +3,8 @@
 import { FileNode } from '@/lib/portfolio-content';
 import { FileIcon, FolderIcon, FolderOpenIcon } from './icons';
 import { useState } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getLanguageFilename } from '@/lib/language-utils';
 
 interface FileTreeProps {
   files: FileNode[];
@@ -63,9 +65,13 @@ interface TreeItemProps {
 
 function TreeItem({ node, activeFilePath, onFileSelect, depth }: TreeItemProps) {
   const [isOpen, setIsOpen] = useState(true);
+  const { selectedLanguage } = useLanguage();
   const isActive = node.path === activeFilePath;
   const isFolder = node.type === 'folder';
   const paddingLeft = 8 + depth * 12;
+  
+  // Get the display name with appropriate extension for the selected language
+  const displayName = isFolder ? node.name : getLanguageFilename(node.name, selectedLanguage);
 
   const handleClick = () => {
     if (isFolder) {
@@ -101,9 +107,9 @@ function TreeItem({ node, activeFilePath, onFileSelect, depth }: TreeItemProps) 
         {isFolder ? (
           isOpen ? <FolderOpenIcon /> : <FolderIcon />
         ) : (
-          <FileIcon />
+          <FileIcon language={selectedLanguage} />
         )}
-        <span>{node.name}</span>
+        <span>{displayName}</span>
       </button>
       
       {isFolder && isOpen && node.children && (

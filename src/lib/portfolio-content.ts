@@ -3,12 +3,15 @@
  * Each file maps to a portfolio section.
  */
 
+export type SupportedLanguage = 'typescript' | 'javascript' | 'python' | 'cpp' | 'pseudocode';
+
 export interface FileNode {
     name: string;
     path: string;
     type: "file" | "folder";
     children?: FileNode[];
     content?: string;
+    translations?: Partial<Record<SupportedLanguage, string>>;
 }
 
 export const portfolioFiles: FileNode[] = [

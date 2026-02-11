@@ -2,8 +2,12 @@
 
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { findFile } from '@/lib/portfolio-content';
+import { getTranslatedContent } from '@/lib/portfolio-translations';
 import { GitHistory } from './git-history';
 import { Minimap } from './minimap';
+import { LanguagePicker, type SupportedLanguage } from './language-picker';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getLanguageFilename } from '@/lib/language-utils';
 
 interface CodeEditorClientProps {
   activeFilePath: string;
@@ -49,8 +53,10 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
   const [customComponent, setCustomComponent] = useState<string | null>(null);
   const [visibleLineRange, setVisibleLineRange] = useState({ start: 0, end: 30 });
   const [fileContent, setFileContent] = useState<string>('');
+  const { selectedLanguage, setSelectedLanguage } = useLanguage();
   const typingRef = useRef<NodeJS.Timeout | null>(null);
   const previousFileRef = useRef<string>('');
+  const previousLanguageRef = useRef<SupportedLanguage>(selectedLanguage);
   const editorRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -97,16 +103,24 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
       
       setCustomComponent(null);
       const totalLines = countLines(file.content);
-      setFilename(file.name);
+      const displayFilename = getLanguageFilename(file.name, selectedLanguage);
+      setFilename(displayFilename);
       setLineCount(totalLines);
       setFileContent(file.content);
 
       try {
+        // Get translated content based on selected language
+        const contentToHighlight = getTranslatedContent(activeFilePath, selectedLanguage, file.content);
+        
+        // Map language to Shiki-compatible language
+        // Pseudocode doesn't exist in Shiki, so we'll use 'text' for plain highlighting
+        const shikiLanguage = selectedLanguage === 'pseudocode' ? 'text' : selectedLanguage;
+        
         // Dynamically import shiki to avoid SSR issues
         const { codeToHtml } = await import('shiki');
         const theme = getTheme();
-        let highlightedHtml = await codeToHtml(file.content, {
-          lang: 'typescript',
+        let highlightedHtml = await codeToHtml(contentToHighlight, {
+          lang: shikiLanguage,
           theme,
           transformers: [
             {
@@ -123,15 +137,18 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
         
         setHtml(highlightedHtml);
         
-        // Only trigger typing animation on file change (not theme change)
+        // Check if this is a new file or language change
         const isNewFile = previousFileRef.current !== activeFilePath;
+        const isLanguageChange = previousLanguageRef.current !== selectedLanguage;
+        
         previousFileRef.current = activeFilePath;
+        previousLanguageRef.current = selectedLanguage;
         
         if (isNewFile) {
-          // Reset and start typing animation
+          // New file - full typing animation
           setVisibleLines(0);
           setIsTyping(true);
-          setCursorLine(null); // Reset cursor on file change
+          setCursorLine(null);
           setCursorPosition(null);
           
           // Clear any existing animation
@@ -156,8 +173,35 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
               setVisibleLines(currentLine);
             }
           }, speed);
+        } else if (isLanguageChange) {
+          // Language change - quick flash animation
+          setVisibleLines(0);
+          setIsTyping(true);
+          
+          // Clear any existing animation
+          if (typingRef.current) {
+            clearInterval(typingRef.current);
+          }
+          
+          // Quick animation for language change
+          let currentLine = 0;
+          const linesPerTick = Math.max(2, Math.floor(totalLines / 15)); // Complete in ~15 ticks (faster)
+          const speed = 15; // ms between ticks (faster)
+          
+          typingRef.current = setInterval(() => {
+            currentLine += linesPerTick;
+            if (currentLine >= totalLines) {
+              setVisibleLines(totalLines);
+              setIsTyping(false);
+              if (typingRef.current) {
+                clearInterval(typingRef.current);
+              }
+            } else {
+              setVisibleLines(currentLine);
+            }
+          }, speed);
         } else {
-          // Theme change - show all lines immediately
+          // Theme change only - show all lines immediately
           setVisibleLines(totalLines);
         }
       } catch (error) {
@@ -175,7 +219,7 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
         clearInterval(typingRef.current);
       }
     };
-  }, [activeFilePath, currentTheme]);
+  }, [activeFilePath, currentTheme, selectedLanguage]);
 
   // Generate CSS to hide lines beyond visibleLines during typing
   const typingStyle = isTyping ? `
@@ -282,7 +326,10 @@ export function CodeEditorClient({ activeFilePath }: CodeEditorClientProps) {
             borderTopColor: 'var(--text-accent)'
           }}
         >
-          <span className="text-[#3178c6] text-[10px] md:text-xs font-bold">TS</span>
+          <LanguagePicker 
+            currentLanguage={selectedLanguage}
+            onLanguageChange={setSelectedLanguage}
+          />
           <span className="truncate max-w-[120px] md:max-w-none">{filename}</span>
         </div>
       </div>

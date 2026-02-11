@@ -3,7 +3,30 @@
  * Intentionally minimal — just enough to be recognizable.
  */
 
-export function FileIcon() {
+type SupportedLanguage = 'typescript' | 'javascript' | 'python' | 'cpp' | 'pseudocode';
+
+const languageColors: Record<SupportedLanguage, string> = {
+  typescript: '#3178c6',
+  javascript: '#f7df1e',
+  python: '#3776ab',
+  cpp: '#00599c',
+  pseudocode: '#808080',
+};
+
+const languageLabels: Record<SupportedLanguage, string> = {
+  typescript: 'TS',
+  javascript: 'JS',
+  python: 'PY',
+  cpp: 'C++',
+  pseudocode: 'PS',
+};
+
+export function FileIcon({ language = 'typescript' }: { language?: SupportedLanguage }) {
+  const color = languageColors[language] || languageColors.typescript;
+  const label = languageLabels[language] || languageLabels.typescript;
+  const fontSize = language === 'cpp' ? '4' : '5'; // Smaller font for C++
+  const x = language === 'cpp' ? '4.5' : '5'; // Adjust x position for C++
+  
   return (
     <svg
       width="16"
@@ -14,25 +37,25 @@ export function FileIcon() {
     >
       <path
         d="M4 2h5l3 3v9H4V2z"
-        stroke="#3178c6"
+        stroke={color}
         strokeWidth="1"
         fill="none"
       />
       <path
         d="M9 2v3h3"
-        stroke="#3178c6"
+        stroke={color}
         strokeWidth="1"
         fill="none"
       />
       <text
-        x="5"
+        x={x}
         y="12"
-        fontSize="5"
-        fill="#3178c6"
+        fontSize={fontSize}
+        fill={color}
         fontFamily="sans-serif"
         fontWeight="bold"
       >
-        TS
+        {label}
       </text>
     </svg>
   );
