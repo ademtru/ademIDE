@@ -143,6 +143,19 @@ function IDELayoutContent({
     }
   };
 
+  // Helper to close sidebar and scroll to section on mobile
+  const handleSidebarMenuClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    if (window.innerWidth < 768) {
+      onSidebarToggle();
+    }
+    // Scroll to section after sidebar closes
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="h-screen flex flex-col" style={{ background: 'var(--bg-primary)' }}>
       {/* Onboarding tooltip for recruiter mode */}
@@ -236,12 +249,12 @@ function IDELayoutContent({
                   <div>
                     <div className="font-bold text-sm mb-1" style={{ color: 'var(--text-accent)' }}>Menu</div>
                     <nav className="flex flex-col gap-2 text-xs" style={{ color: 'var(--text-secondary)' }}>
-                      <a href="#about" className="hover:underline" onClick={closeSidebarOnMobile}>About</a>
-                      <a href="#experience" className="hover:underline" onClick={closeSidebarOnMobile}>Experience</a>
-                      <a href="#skills" className="hover:underline" onClick={closeSidebarOnMobile}>Skills</a>
-                      <a href="#projects" className="hover:underline" onClick={closeSidebarOnMobile}>Projects</a>
-                      <a href="#values" className="hover:underline" onClick={closeSidebarOnMobile}>Values</a>
-                      <a href="#contact" className="hover:underline" onClick={closeSidebarOnMobile}>Contact</a>
+                      <a href="#about" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'about')}>About</a>
+                      <a href="#experience" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'experience')}>Experience</a>
+                      <a href="#skills" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'skills')}>Skills</a>
+                      <a href="#projects" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'projects')}>Projects</a>
+                      <a href="#values" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'values')}>Values</a>
+                      <a href="#contact" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'contact')}>Contact</a>
                     </nav>
                   </div>
                 </div>
