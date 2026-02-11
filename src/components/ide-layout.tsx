@@ -167,7 +167,13 @@ function IDELayoutContent({
       {/* Title bar */}
       <header 
         className="h-8 flex items-center justify-between px-2 border-b flex-shrink-0"
-        style={{ background: 'var(--bg-titlebar)', borderColor: 'var(--border-color)' }}
+        style={{ 
+          background: 'var(--bg-titlebar)', 
+          borderColor: 'var(--border-color)',
+          position: 'sticky',
+          top: 0,
+          zIndex: 30 // ensure above sidebar/overlay
+        }}
       >
         <div className="flex items-center gap-2">
           {/* Sidebar toggle - show in both IDE and recruiter mode */}
