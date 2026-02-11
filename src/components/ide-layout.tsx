@@ -136,13 +136,6 @@ function IDELayoutContent({
 }: IDELayoutContentProps) {
   const { selectedLanguage, setSelectedLanguage } = useLanguage();
 
-  // Helper to close sidebar on mobile
-  const closeSidebarOnMobile = () => {
-    if (window.innerWidth < 768) {
-      onSidebarToggle();
-    }
-  };
-
   // Helper to close sidebar and scroll to section on mobile
   const handleSidebarMenuClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
@@ -153,6 +146,10 @@ function IDELayoutContent({
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Offset for sticky header
+      setTimeout(() => {
+        window.scrollBy({ top: -80, left: 0, behavior: 'smooth' });
+      }, 300); // Wait for scrollIntoView animation
     }
   };
 
