@@ -146,7 +146,6 @@ function IDELayoutContent({
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
     }
   };
 
@@ -164,8 +163,9 @@ function IDELayoutContent({
         style={{ 
           background: 'var(--bg-titlebar)', 
           borderColor: 'var(--border-color)',
-          position: 'static',
+          position: 'sticky',
           top: 0,
+          width: '100%',
           zIndex: 30 // ensure above sidebar/overlay
         }}
       >
@@ -234,7 +234,7 @@ function IDELayoutContent({
               background: 'var(--bg-sidebar)', 
               borderColor: sidebarOpen ? 'var(--border-color)' : 'transparent',
               width: sidebarOpen ? undefined : 0,
-              top: 0,
+              top: 30,
               left: 0,
               height: '100vh',
             }}

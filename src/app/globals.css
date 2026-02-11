@@ -261,3 +261,8 @@ body {
 .recruiter-view-content {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
+
+/* Ensure anchor targets are visible below sticky header on all browsers */
+[id] {
+  scroll-margin-top: 2rem; /* Adjust to match your header height (e.g., 32px or 40px) */
+}
