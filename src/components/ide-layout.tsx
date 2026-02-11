@@ -249,12 +249,12 @@ function IDELayoutContent({
                   <div>
                     <div className="font-bold text-sm mb-1" style={{ color: 'var(--text-accent)' }}>Menu</div>
                     <nav className="flex flex-col gap-2 text-xs" style={{ color: 'var(--text-secondary)' }}>
-                      <a href="#about" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'about')}>About</a>
-                      <a href="#experience" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'experience')}>Experience</a>
-                      <a href="#skills" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'skills')}>Skills</a>
-                      <a href="#projects" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'projects')}>Projects</a>
-                      <a href="#values" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'values')}>Values</a>
-                      <a href="#contact" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'contact')}>Contact</a>
+                      <a href="#" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'about')}>About</a>
+                      <a href="#" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'experience')}>Experience</a>
+                      <a href="#" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'skills')}>Skills</a>
+                      <a href="#" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'projects')}>Projects</a>
+                      <a href="#" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'values')}>Values</a>
+                      <a href="#" className="hover:underline" onClick={e => handleSidebarMenuClick(e, 'contact')}>Contact</a>
                     </nav>
                   </div>
                 </div>
