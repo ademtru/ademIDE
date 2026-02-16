@@ -444,6 +444,9 @@ export const calmErrors = {
     dx: 'Reduced cognitive load when debugging',
     adoption: 'Pending publication on VS Code Marketplace',
   },
+  links: {
+    github: 'https://github.com/ademtru/calm-errors',
+  },
 
   lesson:
     'Developer experience improvements compound across every debugging session',
@@ -486,8 +489,59 @@ export const ademIDE = {
     'Dark/light themes',
   ],
 
+  links: {
+    demo: 'https://ademtruong.com',
+    github: 'https://github.com/ademtru/ademIDE',
+  },
+
   lesson:
     'The best portfolio is one that demonstrates your skills while showing them',
+};
+`,
+            },
+            {
+                name: "codescope.ts",
+                path: "/portfolio/projects/codescope.ts",
+                type: "file",
+                content: `/**
+ * Project: Codescope
+ *
+ * A web app for instant codebase visualization and architecture exploration.
+ */
+
+export const codescope = {
+  name: 'Codescope',
+  status: 'Live',
+  year: 2026,
+
+  problem: 'Developers lack a fast, visual way to explore codebases and understand architecture.',
+
+  solution:
+    'Built a web app for instant codebase visualization, file tree navigation, and architecture diagrams.',
+
+  stack: [
+    'Next.js',
+    'TypeScript',
+    'Tailwind CSS',
+    'Shiki',
+    'React Flow',
+  ],
+
+  features: [
+    'Codebase visualization',
+    'File tree navigation',
+    'Architecture diagrams',
+    'Syntax highlighting',
+    'Live demo',
+  ],
+
+  links: {
+    demo: 'https://codescope-beige.vercel.app/',
+    github: 'https://github.com/ademtru/codescope',
+  },
+
+  lesson:
+    'Visual tools accelerate understanding and onboarding.',
 };
 `,
             },

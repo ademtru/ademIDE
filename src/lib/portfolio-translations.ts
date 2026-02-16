@@ -3,10 +3,13 @@
  * Maps file paths to their language-specific versions
  */
 
-import { SupportedLanguage } from './portfolio-content';
+import { SupportedLanguage } from "./portfolio-content";
 
-export const translations: Record<string, Partial<Record<SupportedLanguage, string>>> = {
-    '/portfolio/about.ts': {
+export const translations: Record<
+    string,
+    Partial<Record<SupportedLanguage, string>>
+> = {
+    "/portfolio/about.ts": {
         python: `"""
 About Me
 
@@ -189,8 +192,8 @@ END CLASS
 about ← NEW About()
 `,
     },
-    
-    '/portfolio/skills.ts': {
+
+    "/portfolio/skills.ts": {
         python: `"""
 Technical Skills
 
@@ -536,8 +539,8 @@ CONST learning ← [
 ]
 `,
     },
-    
-    '/portfolio/projects/aiTasksGenerator.ts': {
+
+    "/portfolio/projects/aiTasksGenerator.ts": {
         python: `"""
 Project: AI Tasks Generator
 
@@ -689,7 +692,7 @@ END PROJECT
 `,
     },
 
-    '/portfolio/experience.ts': {
+    "/portfolio/experience.ts": {
         python: `"""
 Work Experience
 
@@ -976,8 +979,8 @@ CONST experience ← [
 CONST theme ← "Strong engineering blends performance, clarity, and business impact"
 `,
     },
-    
-    '/portfolio/projects/trafficSignClassification.ts': {
+
+    "/portfolio/projects/trafficSignClassification.ts": {
         python: `"""
 Project: Traffic Sign Classification (CNN)
 
@@ -1316,7 +1319,7 @@ END PROJECT
 `,
     },
 
-    '/portfolio/projects/outlookChangeTracking.ts': {
+    "/portfolio/projects/outlookChangeTracking.ts": {
         python: `"""
 Project: Outlook Change Tracking Optimisation
 
@@ -1453,7 +1456,7 @@ END PROJECT
 `,
     },
 
-    '/portfolio/projects/calmErrors.ts': {
+    "/portfolio/projects/calmErrors.ts": {
         python: `"""
 Project: CalmErrors
 
@@ -1589,7 +1592,7 @@ END PROJECT
 `,
     },
 
-    '/portfolio/projects/ademIDE.ts': {
+    "/portfolio/projects/ademIDE.ts": {
         python: `"""
 Project: ademIDE
 
@@ -1743,8 +1746,181 @@ DEFINE PROJECT ademIDE:
 END PROJECT
 `,
     },
+    "/portfolio/projects/codescope.ts": {
+        python: `"""
+Project: Codescope
 
-    '/portfolio/values.ts': {
+A web app for instant codebase visualization and architecture exploration.
+"""
+
+codescope = {
+    'name': 'Codescope',
+    'status': 'Live',
+    'year': 2026,
+
+    'problem': 'Developers lack a fast, visual way to explore codebases and understand architecture.',
+
+    'solution': 'Built a web app for instant codebase visualization, file tree navigation, and architecture diagrams.',
+
+    'stack': [
+        'Next.js',
+        'TypeScript',
+        'Tailwind CSS',
+        'Shiki',
+        'React Flow',
+    ],
+
+    'features': [
+        'Codebase visualization',
+        'File tree navigation',
+        'Architecture diagrams',
+        'Syntax highlighting',
+        'Live demo',
+    ],
+
+    'links': {
+        'demo': 'https://codescope-beige.vercel.app/',
+        'github': 'https://github.com/ademtru/codescope',
+    },
+
+    'lesson': 'Visual tools accelerate understanding and onboarding.',
+}`,
+        javascript: `
+/**
+ * Project: Codescope
+ *
+ * A web app for instant codebase visualization and architecture exploration.
+ */
+
+const codescope = {
+    name: 'Codescope',
+    status: 'Live',
+    year: 2026,
+
+    problem: 'Developers lack a fast, visual way to explore codebases and understand architecture.',
+
+    solution:
+        'Built a web app for instant codebase visualization, file tree navigation, and architecture diagrams.',
+
+    stack: [
+        'Next.js',
+        'TypeScript',
+        'Tailwind CSS',
+        'Shiki',
+        'React Flow',
+    ],
+
+    features: [
+        'Codebase visualization',
+        'File tree navigation',
+        'Architecture diagrams',
+        'Syntax highlighting',
+        'Live demo',
+    ],
+
+    links: {
+        demo: 'https://codescope-beige.vercel.app/',
+        github: 'https://github.com/ademtru/codescope',
+    },
+
+    lesson:
+        'Visual tools accelerate understanding and onboarding.',
+};
+
+export default codescope;`,
+        cpp: `
+/**
+ * Project: Codescope
+ *
+ * A web app for instant codebase visualization and architecture exploration.
+ */
+
+#include <string>
+#include <vector>
+#include <map>
+
+struct Codescope {
+    const std::string name = "Codescope";
+    const std::string status = "Live";
+    const int year = 2026;
+
+    const std::string problem = "Developers lack a fast, visual way to explore codebases and understand architecture.";
+
+    const std::string solution = "Built a web app for instant codebase visualization, file tree navigation, and architecture diagrams.";
+
+    const std::vector<std::string> stack = {
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Shiki",
+        "React Flow"
+    };
+
+    const std::vector<std::string> features = {
+        "Codebase visualization",
+        "File tree navigation",
+        "Architecture diagrams",
+        "Syntax highlighting",
+        "Live demo"
+    };
+
+    const std::map<std::string, std::string> links = {
+        {"demo", "https://codescope-beige.vercel.app/"},
+        {"github", "https://github.com/ademtru/codescope"}
+    };
+
+    const std::string lesson = "Visual tools accelerate understanding and onboarding.";
+};
+
+static Codescope codescope;`,
+        pseudocode: `/**
+* PROJECT: CODESCOPE
+*
+* A web app for instant codebase visualization and architecture exploration.
+*/
+
+DEFINE PROJECT codescope:
+    name ← "Codescope"
+    status ← "Live"
+    year ← 2026
+
+    // Challenge
+    problem ← "Developers lack a fast, visual way to explore codebases and understand architecture."
+
+    // Implementation
+    solution ← "Built a web app for instant codebase visualization, file tree navigation, and architecture diagrams."
+
+    // Technology Stack
+    stack ← [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Shiki",
+        "React Flow"
+    ]
+
+    // Features
+    features ← [
+        "Codebase visualization",
+        "File tree navigation",
+        "Architecture diagrams",
+        "Syntax highlighting",
+        "Live demo"
+    ]
+
+    // Links
+    links ← {
+        demo: "https://codescope-beige.vercel.app/",
+        github: "https://github.com/ademtru/codescope"
+    }
+
+    // Key Takeaway
+    lesson ← "Visual tools accelerate understanding and onboarding."
+
+END PROJECT`,
+    },
+
+    "/portfolio/values.ts": {
         python: `"""
 Engineering Values
 
@@ -1899,7 +2075,7 @@ CONST values ← {
 `,
     },
 
-    '/portfolio/contact.ts': {
+    "/portfolio/contact.ts": {
         python: `"""
 Contact
 
@@ -2037,18 +2213,22 @@ CONST signoff ← "Thanks for reading — let's build something meaningful."
 /**
  * Get the translated content for a given file path and language
  */
-export function getTranslatedContent(filePath: string, language: SupportedLanguage, originalContent: string): string {
+export function getTranslatedContent(
+    filePath: string,
+    language: SupportedLanguage,
+    originalContent: string,
+): string {
     // For TypeScript, return original
-    if (language === 'typescript') {
+    if (language === "typescript") {
         return originalContent;
     }
-    
+
     // Check if translation exists
     const fileTranslations = translations[filePath];
     if (fileTranslations && fileTranslations[language]) {
         return fileTranslations[language]!;
     }
-    
+
     // Fall back to original content
     return originalContent;
 }

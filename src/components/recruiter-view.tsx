@@ -182,6 +182,16 @@ function parseProject(content: string) {
     }
   }
 
+  // Extract links
+  const linksMatch = content.match(/links:\s*\{([\s\S]*?)\}/);
+  const links: { demo?: string; github?: string } = {};
+  if (linksMatch) {
+    const demoMatch = linksMatch[1].match(/demo:\s*['"]([^'"]+)['"]/);
+    const githubMatch = linksMatch[1].match(/github:\s*['"]([^'"]+)['"]/);
+    if (demoMatch) links.demo = demoMatch[1];
+    if (githubMatch) links.github = githubMatch[1];
+  }
+
   return {
     name: nameMatch?.[1] || 'Unknown Project',
     status: statusMatch?.[1] || '',
@@ -191,6 +201,7 @@ function parseProject(content: string) {
     lesson: lessonMatch?.[1] || '',
     stack: stack || [],
     results,
+    links,
   };
 }
 
@@ -458,6 +469,33 @@ export function RecruiterView() {
                           {tech}
                         </span>
                       ))}
+                    </div>
+                  )}
+                  {/* Project Links */}
+                  {project.links && (
+                    <div className="flex flex-wrap gap-3 mt-2">
+                      {project.links.demo && (
+                        <a
+                          href={project.links.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs px-3 py-1 rounded font-medium transition-opacity hover:opacity-80"
+                          style={{ background: 'var(--text-accent)', color: 'var(--bg-primary)' }}
+                        >
+                          Live Demo
+                        </a>
+                      )}
+                      {project.links.github && (
+                        <a
+                          href={project.links.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs px-3 py-1 rounded font-medium transition-opacity hover:opacity-80"
+                          style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)' }}
+                        >
+                          GitHub
+                        </a>
+                      )}
                     </div>
                   )}
                 </div>
