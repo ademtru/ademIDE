@@ -234,9 +234,10 @@ function IDELayoutContent({
               background: 'var(--bg-sidebar)', 
               borderColor: sidebarOpen ? 'var(--border-color)' : 'transparent',
               width: sidebarOpen ? undefined : 0,
-              top: 30,
-              left: 0,
-              height: '100vh',
+              // Only apply top and height for fixed (mobile)
+              ...(sidebarOpen && typeof window !== 'undefined' && window.innerWidth < 768
+                ? { top: '2rem', left: 0, height: 'calc(100vh - 2rem)' }
+                : {}),
             }}
           >
             <div className="w-56 sm:w-64 lg:w-72">
